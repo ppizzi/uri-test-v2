@@ -57,12 +57,16 @@ with open("uri_test_reference.jpeg", "rb") as f:
 #--upload test strip photo, rotate it, save it
 col1, col2 = st.columns(2)
 up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
+up_image_bytes = up_image.read()
 if up_image is not None:
     col1.image(ref_image)
     col2.image(up_image)
     #    rot_image = Image.open(up_image).rotate(int(rotate))
     #    col2.image(rot_image)
     #    rot_image.save("img.jpeg")
+    #with open("img.jpeg", "rb") as f:
+    #    up_image_bytes = f.read()
+
     
 
 
@@ -78,7 +82,7 @@ conversation = [
             {"text": msg_step1},
             {"image":{"format":"jpeg", "source":{"bytes": ref_image}}},
             {"text": msg_step2},
-            {"image":{"format":"jpeg", "source":{"bytes": up_image}}},
+            {"image":{"format":"jpeg", "source":{"bytes": up_image_bytes}}},
         ],
         }
     ]
