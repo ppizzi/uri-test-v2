@@ -93,6 +93,9 @@ st.sidebar.image("uri_test_reference.jpeg")
 with open("uri_test_reference.jpeg", "rb") as f:
         ref_image = f.read()
 
+
+st.write(ref_image.size)
+
 #--upload test strip photo, rotate it, save it
 #col1, col2 = st.columns(2)
 up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
