@@ -90,21 +90,19 @@ st.write("You selected: ", output_language)
 #--display and open test reference image
 st.sidebar.image("uri_test_reference.jpeg")
 
+#--get ref image for sizing and comparing side by side
+ref_img_for_size = Image.open("uri_test_reference.jpeg")
+ref_width, ref_height = ref_img_for_size.size
+st.write(ref_height)
+
 with open("uri_test_reference.jpeg", "rb") as f:
         ref_image = f.read()
 
-
-st.write(ref_image.size)
-
 #--upload test strip photo, rotate it, save it
-#col1, col2 = st.columns(2)
 up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
 up_image_bytes = up_image.read()
-#up_image_Img = ImageOps.exif_transpose(up_image) 
 
 if up_image is not None:
-    #col1.image(ref_image)
-    #col2.image(up_image)
     st.image([ref_image, up_image], width=200)
     call_llm(ref_image, up_image_bytes)
 
