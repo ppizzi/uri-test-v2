@@ -95,11 +95,16 @@ ref_img_for_size = Image.open("uri_test_reference.jpeg")
 ref_width, ref_height = ref_img_for_size.size
 st.write(ref_height)
 
+#--open ref image as bytes for LLM model
 with open("uri_test_reference.jpeg", "rb") as f:
         ref_image = f.read()
 
 #--upload test strip photo, rotate it, save it
 up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
+up_img_resize = Image.open(up_image)
+st.write(up_img_resize.size)
+
+#-read uploaded image as bytes for llm model
 up_image_bytes = up_image.read()
 
 if up_image is not None:
