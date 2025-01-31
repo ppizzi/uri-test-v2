@@ -114,7 +114,7 @@ up_img_resize = up_img_resize.resize(newsize)
 up_image_bytes = up_image.read()
 
 if up_image is not None:
-    st.image([ref_image, up_img_resize])
+    st.image([ref_image, up_img_resize], width=200)
     call_llm(ref_image, up_image_bytes)
 
 
