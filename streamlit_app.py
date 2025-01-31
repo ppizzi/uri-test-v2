@@ -102,13 +102,19 @@ with open("uri_test_reference.jpeg", "rb") as f:
 #--upload test strip photo, rotate it, save it
 up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
 up_img_resize = Image.open(up_image)
-st.write(up_img_resize.size)
+up_img_or_w, up_img_or_h = up_img_resize.size
+#st.write(up_img_resize.size)
+factor_w = up_img_or_h/ref_height
+st.write(factor_w)
+newsize = (int(up_img_or_w * factor_w), ref_height)
+st.write(newsize)
+up_img_resize = up_img_resize.resize(newsize)
 
 #-read uploaded image as bytes for llm model
 up_image_bytes = up_image.read()
 
 if up_image is not None:
-    st.image([ref_image, up_image], width=200)
+    st.image([ref_image, up_img_resize], width=200)
     call_llm(ref_image, up_image_bytes)
 
 
