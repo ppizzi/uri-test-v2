@@ -58,7 +58,7 @@ with open("uri_test_reference.jpeg", "rb") as f:
 col1, col2 = st.columns(2)
 up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
 if up_image is not None:
-    col1-image(ref_image)
+    col1.image(ref_image)
     col2.image(up_image)
 
 
