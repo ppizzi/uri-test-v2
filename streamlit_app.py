@@ -25,10 +25,16 @@ from botocore.exceptions import ClientError
 # -- functions --
 def call_llm(model_id, ref_image, up_image_bytes, language):
     
-    msg_step1 = "Create a table containing the list of parameters (top to bottom) from this uring test reference, and their color indicator for a normal state:"
-    msg_step2 = "Step by step, create a list of colors you detect in this second image of a used test strip (top to bottom) and compare it to the reference image. Add the result to the previous table."
-    system_msg = "You are an expert medical doctor. When the user provides you with an image of their urine test strip, analyze carefully the color of the various indicators on the test and compare it to the testkit reference. Then provide a short medical analysis and lookout for possible infection indicators. Provide your answer in a concise format. Provide your answer in markdown format. Do not analyze images that are not containing a urine test strip. Always end the response with a disclaimer that this is not a medical advice. Please respond in the following language: " + language 
+    system_msgs = [
+        "You are an expert medical doctor. When the user provides you with an image of their urine test strip, analyze carefully the color of the various indicators on the test and compare it to the testkit reference. Then provide a short medical analysis and lookout for possible infection indicators. Provide your answer in a concise format. Provide your answer in markdown format. Do not analyze images that are not containing a urine test strip. Always end the response with a disclaimer that this is not a medical advice. Please respond in the following language: " + language 
+    ]
+    
     #inferenceParams = {}
+    msg_step1 = "Create a table containing the list of parameters (top to bottom) from this uring test reference, and their color indicator for a normal state:"
+    
+    msg_step2 = "Step by step, create a list of colors you detect in this second image of a used test strip (top to bottom) and compare it to the reference image. Add the result to the previous table."
+    
+   
     
     conversation = [
         {
@@ -47,7 +53,7 @@ def call_llm(model_id, ref_image, up_image_bytes, language):
         response = client.converse(
             modelId=model_id,
             messages=conversation,
-            system=system_msg,
+            system=system_msgs,
             #inference...
         )
     
