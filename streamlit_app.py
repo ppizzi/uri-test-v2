@@ -66,7 +66,7 @@ if up_image is not None:
     
 
 
-msg_step1 = "Tell me something my doctor would say"
+msg_step1 = "Describe this image:"
 msg_step2 = "Now tell me some ideas on how to implement it"
 #system_msg = ""
 #inferenceParams = {}
@@ -76,8 +76,8 @@ conversation = [
         "role": "user",
         "content": [
             {"text": msg_step1},
+            {"image":{"format":"jpeg", "source":{"bytes": ref_image}}},
             {"text": msg_step2},
-            #{"image":{"format":"jpeg", "source":{"bytes": ref_image}}},
             #{"image":{"format":"jpeg", "source":{"bytes": up_image}}},
         ],
         }
@@ -87,7 +87,7 @@ try:
     # Send the message to the model, using a basic inference configuration.
     response = client.converse(
         modelId=model_id,
-        messages=conversation
+        messages=conversation,
         #system...
         #inference...
     )
