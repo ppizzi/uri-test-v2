@@ -102,7 +102,7 @@ up_image_bytes = up_image.read()
 if up_image is not None:
     #col1.image(ref_image)
     #col2.image(up_image)
-    st.image(ref_image, up_image, width=200)
+    st.image([ref_image, up_image], width=200)
     call_llm(ref_image, up_image_bytes)
 
 
