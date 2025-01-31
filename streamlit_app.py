@@ -32,7 +32,7 @@ def call_llm(model_id, ref_image, up_image_bytes, language):
         }
     ]
     
-    #inferenceParams = {}
+    inference_config = {"temperature": 0.3}
     msg_step1 = "Create a table containing the list of parameters (top to bottom) from this uring test reference, and their color indicator for a normal state:"
     
     msg_step2 = "Step by step, create a list of colors you detect in this second image of a used test strip (top to bottom) and compare it to the reference image. Add the result to the previous table."
@@ -57,7 +57,7 @@ def call_llm(model_id, ref_image, up_image_bytes, language):
             modelId=model_id,
             messages=conversation,
             system=system_msgs,
-            #inference...
+            inferenceConfig=inference_config,
         )
     
         # Extract and print the response text.
