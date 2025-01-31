@@ -46,3 +46,22 @@ client = boto3.client(
 #--select user language
 output_language = st.radio("Select your language:", ["Spanish","Italian","English"]) 
 st.write("You selected: ", output_language)
+
+
+#--display and open test reference image
+st.sidebar.image("uri_test_reference.jpeg")
+
+with open("uri_test_reference.jpeg", "rb") as f:
+        ref_image = f.read()
+
+#--upload test strip photo, rotate it, save it
+col1, col2 = st.columns(2)
+up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
+if up_image is not None:
+    col1-image(ref_image)
+    col2.image(up_image)
+
+
+
+
+
