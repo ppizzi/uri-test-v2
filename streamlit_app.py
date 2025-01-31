@@ -60,8 +60,42 @@ up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
 if up_image is not None:
     col1.image(ref_image)
     col2.image(up_image)
+    #    rot_image = Image.open(up_image).rotate(int(rotate))
+    #    col2.image(rot_image)
+    #    rot_image.save("img.jpeg")
+    
 
 
+msg_step1 = "Tell me something my doctor would say"
+msg_step2 = "Now tell me some ideas on how to implement it"
+#system_msg = ""
+#inferenceParams = {}
 
+conversation = [
+    {
+        "role": "user",
+        "content": [
+            {"text": msg_step1},
+            {"text": msg_step2},
+            #{"image":{"format":"jpeg", "source":{"bytes": ref_image}}},
+            #{"image":{"format":"jpeg", "source":{"bytes": up_image}}},
+        ],
+        }
+    ]
 
+try:
+    # Send the message to the model, using a basic inference configuration.
+    response = client.converse(
+        modelId=model_id,
+        messages=conversation
+        #system...
+        #inference...
+    )
 
+    # Extract and print the response text.
+    response_text = response["output"]["message"]["content"][0]["text"]
+    st.write(response_text)
+
+except (ClientError, Exception) as e:
+    st.write(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
+    exit(1)
