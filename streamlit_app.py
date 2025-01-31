@@ -94,14 +94,15 @@ with open("uri_test_reference.jpeg", "rb") as f:
         ref_image = f.read()
 
 #--upload test strip photo, rotate it, save it
-col1, col2 = st.columns(2)
+#col1, col2 = st.columns(2)
 up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
 up_image_bytes = up_image.read()
 #up_image_Img = ImageOps.exif_transpose(up_image) 
 
 if up_image is not None:
-    col1.image(ref_image)
-    col2.image(up_image)
+    #col1.image(ref_image)
+    #col2.image(up_image)
+    st.image(ref_image, up_image, width=200=
     call_llm(ref_image, up_image_bytes)
 
 
