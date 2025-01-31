@@ -93,7 +93,7 @@ st.sidebar.image("uri_test_reference.jpeg")
 #--get ref image for sizing and comparing side by side
 ref_img_for_size = Image.open("uri_test_reference.jpeg")
 ref_width, ref_height = ref_img_for_size.size
-st.write(ref_height)
+st.write(ref_img_for_size.size)
 
 #--open ref image as bytes for LLM model
 with open("uri_test_reference.jpeg", "rb") as f:
@@ -103,7 +103,7 @@ with open("uri_test_reference.jpeg", "rb") as f:
 up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
 up_img_resize = Image.open(up_image)
 up_img_or_w, up_img_or_h = up_img_resize.size
-#st.write(up_img_resize.size)
+st.write(up_img_resize.size)
 factor_w = up_img_or_h/ref_height
 st.write(factor_w)
 newsize = (int(up_img_or_w * factor_w), ref_height)
@@ -114,7 +114,7 @@ up_img_resize = up_img_resize.resize(newsize)
 up_image_bytes = up_image.read()
 
 if up_image is not None:
-    st.image([ref_image, up_img_resize], width=200)
+    st.image([ref_image, up_img_resize])
     call_llm(ref_image, up_image_bytes)
 
 
