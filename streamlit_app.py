@@ -104,7 +104,7 @@ up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
 up_img_resize = Image.open(up_image)
 up_img_or_w, up_img_or_h = up_img_resize.size
 st.write(up_img_resize.size)
-factor_w = up_img_or_h/ref_height
+factor_w = ref_height/up_img_or_h
 st.write(factor_w)
 newsize = (int(up_img_or_w * factor_w), ref_height)
 st.write(newsize)
