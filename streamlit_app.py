@@ -32,10 +32,16 @@ def call_llm(model_id, ref_image, up_image_bytes, language):
         }
     ]
     
-    inference_config = {"temperature": 0.3}
+    inference_config = {
+        "temperature": 0.3,
+        "maxTokens": 2000,
+        #"top_p": , 
+        #"top_k": ,
+    }
+    
     msg_step1 = "Create a table containing the list of parameters (top to bottom) from this uring test reference, and their color indicator for a normal state:"
     
-    msg_step2 = "Step by step, create a list of colors you detect in this second image of a used test strip (top to bottom) and compare it to the reference image. Add the result to the previous table."
+    msg_step2 = "Step by step, create a list of colors you detect in this second image of a used test strip (top to bottom) and compare it to the reference image. Add the result to the previous table. Add a final column with indicators (:red_circle: or :white_check_mark:) to highlight out of normal range results."
     
    
     
