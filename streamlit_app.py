@@ -66,8 +66,8 @@ if up_image is not None:
     
 
 
-msg_step1 = "Describe this image:"
-msg_step2 = "Now tell me some ideas on how to implement it"
+msg_step1 = "Create a table containing the list of parameters (top to bottom) from this uring test reference, and their color indicator for a normal state:"
+msg_step2 = "Step by step, give me the list of colors you detect in this second image of a used test strip (top to bottom) and compare it to the reference image. Add the result to the previous table."
 #system_msg = ""
 #inferenceParams = {}
 
@@ -78,7 +78,7 @@ conversation = [
             {"text": msg_step1},
             {"image":{"format":"jpeg", "source":{"bytes": ref_image}}},
             {"text": msg_step2},
-            #{"image":{"format":"jpeg", "source":{"bytes": up_image}}},
+            {"image":{"format":"jpeg", "source":{"bytes": up_image}}},
         ],
         }
     ]
