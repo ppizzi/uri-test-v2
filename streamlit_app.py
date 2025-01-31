@@ -22,6 +22,44 @@ from botocore.exceptions import ClientError
 
 
 # -- functions --
+def call_llm(ref_image, up_image_bytes ):
+    
+    msg_step1 = "Create a table containing the list of parameters (top to bottom) from this uring test reference, and their color indicator for a normal state:"
+    msg_step2 = "Step by step, give me the list of colors you detect in this second image of a used test strip (top to bottom) and compare it to the reference image. Add the result to the previous table."
+    #system_msg = ""
+    #inferenceParams = {}
+    
+    conversation = [
+        {
+            "role": "user",
+            "content": [
+                {"text": msg_step1},
+                {"image":{"format":"jpeg", "source":{"bytes": ref_image}}},
+                {"text": msg_step2},
+                {"image":{"format":"jpeg", "source":{"bytes": up_image_bytes}}},
+            ],
+            }
+        ]
+    
+    try:
+        # Send the message to the model, using a basic inference configuration.
+        response = client.converse(
+            modelId=model_id,
+            messages=conversation,
+            #system...
+            #inference...
+        )
+    
+        # Extract and print the response text.
+        response_text = response["output"]["message"]["content"][0]["text"]
+        st.write(response_text)
+    
+    except (ClientError, Exception) as e:
+        st.write(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
+        exit(1)
+
+    return
+
 #--- end of function definition ---
 
 
@@ -66,40 +104,6 @@ if up_image is not None:
     #    rot_image.save("img.jpeg")
     #with open("img.jpeg", "rb") as f:
     #    up_image_bytes = f.read()
+    call_llm(ref_image, up_image_bytes)
 
-    
 
-
-msg_step1 = "Create a table containing the list of parameters (top to bottom) from this uring test reference, and their color indicator for a normal state:"
-msg_step2 = "Step by step, give me the list of colors you detect in this second image of a used test strip (top to bottom) and compare it to the reference image. Add the result to the previous table."
-#system_msg = ""
-#inferenceParams = {}
-
-conversation = [
-    {
-        "role": "user",
-        "content": [
-            {"text": msg_step1},
-            {"image":{"format":"jpeg", "source":{"bytes": ref_image}}},
-            {"text": msg_step2},
-            {"image":{"format":"jpeg", "source":{"bytes": up_image_bytes}}},
-        ],
-        }
-    ]
-
-try:
-    # Send the message to the model, using a basic inference configuration.
-    response = client.converse(
-        modelId=model_id,
-        messages=conversation,
-        #system...
-        #inference...
-    )
-
-    # Extract and print the response text.
-    response_text = response["output"]["message"]["content"][0]["text"]
-    st.write(response_text)
-
-except (ClientError, Exception) as e:
-    st.write(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
-    exit(1)
