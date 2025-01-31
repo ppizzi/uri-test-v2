@@ -26,7 +26,10 @@ from botocore.exceptions import ClientError
 def call_llm(model_id, ref_image, up_image_bytes, language):
     
     system_msgs = [
+        {
+        "text":
         "You are an expert medical doctor. When the user provides you with an image of their urine test strip, analyze carefully the color of the various indicators on the test and compare it to the testkit reference. Then provide a short medical analysis and lookout for possible infection indicators. Provide your answer in a concise format. Provide your answer in markdown format. Do not analyze images that are not containing a urine test strip. Always end the response with a disclaimer that this is not a medical advice. Please respond in the following language: " + language 
+        }
     ]
     
     #inferenceParams = {}
