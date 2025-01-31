@@ -1,4 +1,4 @@
-    # inspiration: 
+# inspiration: 
 # https://github.com/aarushdixit889/photo-semantics-analyzer/blob/main/app.py
 # https://medium.com/@codingmatheus/sending-images-to-claude-3-using-amazon-bedrock-b588f104424f
 # https://docs.streamlit.io/develop/tutorials/chat-and-llm-apps/build-conversational-apps
@@ -14,6 +14,7 @@
 import streamlit as st
 import json
 from PIL import Image
+from PIL import ImageOps
 import PIL
 import os
 import base64
@@ -95,15 +96,11 @@ with open("uri_test_reference.jpeg", "rb") as f:
 #--upload test strip photo, rotate it, save it
 col1, col2 = st.columns(2)
 up_image=st.file_uploader("Upload your photo", type=["jpeg", "png"])
-up_image_bytes = up_image.read()
+up_image_Img = ImageOps.exif_transpose(up_image)
+#up_image_bytes = up_image_Img.read()
 if up_image is not None:
     col1.image(ref_image)
-    col2.image(up_image)
-    #    rot_image = Image.open(up_image).rotate(int(rotate))
-    #    col2.image(rot_image)
-    #    rot_image.save("img.jpeg")
-    #with open("img.jpeg", "rb") as f:
-    #    up_image_bytes = f.read()
-    call_llm(ref_image, up_image_bytes)
+    col2.image(up_image_Img)
+    #call_llm(ref_image, up_image_bytes)
 
 
